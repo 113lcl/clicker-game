@@ -1,4 +1,4 @@
-const CACHE_NAME = 'clicker-v1';
+const CACHE_NAME = 'clicker-v2';
 const urlsToCache = [
     './',
     './index.html',
