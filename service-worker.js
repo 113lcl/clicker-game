@@ -1,10 +1,10 @@
 const CACHE_NAME = 'clicker-v1';
 const urlsToCache = [
-    '/',
-    '/index.html',
-    '/styles.css',
-    '/game.js',
-    '/manifest.json'
+    './',
+    './index.html',
+    './styles.css',
+    './game.js',
+    './manifest.json'
 ];
 
 // Установка Service Worker
