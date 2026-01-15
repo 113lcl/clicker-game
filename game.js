@@ -315,11 +315,11 @@ function setupEventListeners() {
     clickButton.addEventListener('click', handleClick);
     clickButton.addEventListener('touchstart', (e) => {
         e.preventDefault();
-    });
+    }, { passive: false });
     clickButton.addEventListener('touchend', (e) => {
         e.preventDefault();
         handleClick(e);
-    });
+    }, { passive: false });
     
     console.log('Event listeners установлены');
     
