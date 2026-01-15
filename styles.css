@@ -1,0 +1,337 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', sans-serif;
+    background-color: #2C2F2C;
+    color: #E8DCC8;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+
+.game-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+}
+
+/* Header с счетчиком монет */
+.header {
+    padding: 20px;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.2);
+    border-bottom: 1px solid rgba(232, 220, 200, 0.1);
+}
+
+.coins-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.coins-label {
+    font-size: 12px;
+    opacity: 0.7;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.coins-amount {
+    font-size: 32px;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+/* Основная игровая область */
+.main {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 20px;
+}
+
+.click-area {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    width: 100%;
+}
+
+/* Главная кнопка - круг для клика */
+.click-button {
+    width: 180px;
+    height: 180px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #E8DCC8 0%, #DEC9A8 100%);
+    border: none;
+    cursor: pointer;
+    font-size: 24px;
+    font-weight: 600;
+    color: #2C2F2C;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    transition: all 0.1s ease-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    outline: none;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.click-button:active {
+    transform: scale(0.95);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.click-button:focus {
+    outline: none;
+}
+
+#buttonText {
+    display: block;
+}
+
+/* Кнопка открытия улучшений */
+.upgrades-toggle {
+    padding: 12px 24px;
+    margin-top: auto;
+    margin-bottom: 20px;
+    background: rgba(232, 220, 200, 0.1);
+    border: 1px solid rgba(232, 220, 200, 0.3);
+    color: #E8DCC8;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.upgrades-toggle:active {
+    background: rgba(232, 220, 200, 0.2);
+}
+
+/* Модальное окно */
+.modal {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal.active {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.modal-content {
+    background: #1a1d1a;
+    width: 100%;
+    max-width: 100%;
+    border-radius: 20px 20px 0 0;
+    box-shadow: 0 -10px 40px rgba(0, 0, 0, 0.5);
+    display: flex;
+    flex-direction: column;
+    max-height: 70vh;
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+    }
+    to {
+        transform: translateY(0);
+    }
+}
+
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    border-bottom: 1px solid rgba(232, 220, 200, 0.1);
+}
+
+.modal-header h2 {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+.modal-close {
+    background: none;
+    border: none;
+    color: #E8DCC8;
+    font-size: 20px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.modal-body {
+    padding: 20px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* Карточка улучшения */
+.upgrade-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background: rgba(232, 220, 200, 0.05);
+    border: 1px solid rgba(232, 220, 200, 0.2);
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.upgrade-item:active {
+    background: rgba(232, 220, 200, 0.1);
+    transform: scale(0.98);
+}
+
+.upgrade-item.disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.upgrade-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.upgrade-name {
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.upgrade-desc {
+    font-size: 12px;
+    opacity: 0.7;
+}
+
+.upgrade-level {
+    font-size: 11px;
+    opacity: 0.6;
+    margin-top: 2px;
+}
+
+.upgrade-cost {
+    font-size: 13px;
+    font-weight: 600;
+    min-width: 60px;
+    text-align: right;
+}
+
+/* Floating text для визуального эффекта */
+#floatingTextContainer {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.floating-text {
+    position: absolute;
+    font-size: 20px;
+    font-weight: 700;
+    color: #E8DCC8;
+    pointer-events: none;
+    animation: floatUp 1s ease-out forwards;
+}
+
+@keyframes floatUp {
+    0% {
+        transform: translateY(0) translateX(0) scale(1);
+        opacity: 1;
+    }
+    100% {
+        transform: translateY(-100px) translateX(0) scale(1.2);
+        opacity: 0;
+    }
+}
+
+@keyframes pulseAuto {
+    0% {
+        transform: scale(1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 10px 30px rgba(232, 220, 200, 0.2);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+}
+
+.click-button.pulse-auto {
+    animation: pulseAuto 0.3s ease-out;
+}
+
+.floating-text.auto-click-text {
+    font-size: 16px;
+    opacity: 0.6;
+}
+
+/* Адаптивность для разных размеров экранов */
+@media (max-height: 600px) {
+    .click-button {
+        width: 120px;
+        height: 120px;
+        font-size: 18px;
+    }
+    
+    .coins-amount {
+        font-size: 24px;
+    }
+}
+
+@media (max-width: 400px) {
+    .click-button {
+        width: 140px;
+        height: 140px;
+    }
+}

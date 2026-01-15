@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="Clicker">
+    <meta name="description" content="Минимальная idle game">
+    <meta name="theme-color" content="#2C2F2C">
+    <title>Clicker</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%232C2F2C' width='192' height='192'/><circle cx='96' cy='96' r='60' fill='%23E8DCC8'/></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect fill='%232C2F2C' width='192' height='192'/><circle cx='96' cy='96' r='60' fill='%23E8DCC8'/></svg>">
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="game-container">
+        <header class="header">
+            <div class="coins-display">
+                <span class="coins-label">Coins</span>
+                <span class="coins-amount" id="coinsAmount">0</span>
+            </div>
+        </header>
+
+        <main class="main">
+            <div class="click-area">
+                <button class="click-button" id="clickButton">
+                    <span id="buttonText">+1</span>
+                </button>
+            </div>
+
+            <button class="upgrades-toggle" id="upgradesToggle">
+                ⚙️ Улучшения
+            </button>
+        </main>
+
+        <!-- Модальное окно с улучшениями -->
+        <div class="modal" id="upgradesModal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h2>Улучшения</h2>
+                    <button class="modal-close" id="modalClose">✕</button>
+                </div>
+                <div class="modal-body" id="upgradesList">
+                    <!-- Улучшения будут добавлены здесь -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating text для отображения добавленных монет -->
+        <div id="floatingTextContainer"></div>
+    </div>
+
+    <script src="game.js"></script>
+    <script>
+        // Регистрируем service worker для PWA функциональности
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('service-worker.js')
+                .then(reg => console.log('Service Worker зарегистрирован'))
+                .catch(err => console.log('Service Worker ошибка:', err));
+        }
+    </script>
+</body>
+</html>
