@@ -125,7 +125,11 @@ function handleClick(e) {
     
     // Вибрация (работает на мобильных устройствах)
     if (navigator.vibrate) {
-        navigator.vibrate(30);
+        try {
+            navigator.vibrate(30);
+        } catch (e) {
+            console.log('Vibration not supported');
+        }
     }
     
     // Визуальный эффект парящего текста
@@ -191,7 +195,11 @@ function showAutoClickEffect() {
     
     // Мягкая вибрация для автокликера
     if (navigator.vibrate) {
-        navigator.vibrate(10);
+        try {
+            navigator.vibrate(10);
+        } catch (e) {
+            console.log('Vibration not supported');
+        }
     }
 }
 
