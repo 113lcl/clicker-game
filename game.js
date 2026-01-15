@@ -303,16 +303,28 @@ function buyUpgrade(upgrade) {
 
 // Обработчики событий
 function setupEventListeners() {
+    if (!clickButton) {
+        console.log('clickButton не найден');
+        return;
+    }
+    
+    // Удаляем старые обработчики чтобы не было дублирования
+    clickButton.replaceWith(clickButton.cloneNode(true));
+    clickButton = document.getElementById('clickButton');
+    
     clickButton.addEventListener('click', handleClick);
+    clickButton.addEventListener('touchstart', (e) => {
+        e.preventDefault();
+    });
     clickButton.addEventListener('touchend', (e) => {
         e.preventDefault();
         handleClick(e);
     });
     
+    console.log('Event listeners установлены');
+    
     upgradesToggle.addEventListener('click', openUpgrades);
     modalClose.addEventListener('click', closeUpgrades);
-    
-    // Обработчики сброса
     resetBtn.addEventListener('click', openResetConfirm);
     resetCancel.addEventListener('click', closeResetConfirm);
     resetConfirm.addEventListener('click', resetGame);
@@ -346,6 +358,19 @@ function setupEventListeners() {
 // Инициализация при загрузке страницы
 window.addEventListener('load', () => {
     console.log('Страница загружена, инициализируем игру...');
-    init();
-    console.log('Игра инициализирована');
+    
+    // Убедимся что документ полностью готов
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', init);
+    } else {
+        init();
+    }
+});
+
+// Дополнительная инициализация при DOMContentLoaded
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOMContentLoaded - переподключаем обработчики');
+    if (clickButton) {
+        setupEventListeners();
+    }
 });
