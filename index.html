@@ -33,10 +33,27 @@
             <button class="upgrades-toggle" id="upgradesToggle">
                 ⚙️ Улучшения
             </button>
+
+            <button class="reset-btn" id="resetBtn">
+                🔄 Сброс
+            </button>
         </main>
 
-        <!-- Модальное окно с улучшениями -->
-        <div class="modal" id="upgradesModal">
+        <!-- Модальное окно с подтверждением сброса -->
+        <div class="modal" id="resetConfirmModal">
+            <div class="modal-content reset-modal">
+                <div class="modal-header">
+                    <h2>⚠️ Сброс прогресса</h2>
+                </div>
+                <div class="modal-body">
+                    <p>Вы уверены? Это удалит все коины и улучшения. Это действие нельзя отменить.</p>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-cancel" id="resetCancel">Отмена</button>
+                    <button class="btn btn-danger" id="resetConfirm">Сброс</button>
+                </div>
+            </div>
+        </div>
             <div class="modal-content">
                 <div class="modal-header">
                     <h2>Улучшения</h2>

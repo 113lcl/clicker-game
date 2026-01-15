@@ -38,6 +38,10 @@ let upgradesModal = document.getElementById('upgradesModal');
 let modalClose = document.getElementById('modalClose');
 let upgradesList = document.getElementById('upgradesList');
 let floatingTextContainer = document.getElementById('floatingTextContainer');
+let resetBtn = document.getElementById('resetBtn');
+let resetConfirmModal = document.getElementById('resetConfirmModal');
+let resetCancel = document.getElementById('resetCancel');
+let resetConfirm = document.getElementById('resetConfirm');
 
 // Инициализация
 function init() {
@@ -62,6 +66,19 @@ function init() {
     }
     if (!floatingTextContainer) {
         floatingTextContainer = document.getElementById('floatingTextContainer');
+    }
+    
+    if (!resetBtn) {
+        resetBtn = document.getElementById('resetBtn');
+    }
+    if (!resetConfirmModal) {
+        resetConfirmModal = document.getElementById('resetConfirmModal');
+    }
+    if (!resetCancel) {
+        resetCancel = document.getElementById('resetCancel');
+    }
+    if (!resetConfirm) {
+        resetConfirm = document.getElementById('resetConfirm');
     }
     
     loadGame();
@@ -191,6 +208,32 @@ function closeUpgrades() {
     upgradesModal.classList.remove('active');
 }
 
+// Открытие модального окна подтверждения сброса
+function openResetConfirm() {
+    resetConfirmModal.classList.add('active');
+}
+
+function closeResetConfirm() {
+    resetConfirmModal.classList.remove('active');
+}
+
+// Функция сброса прогресса
+function resetGame() {
+    gameState = {
+        coins: 0,
+        clickPower: 1,
+        autoClickRate: 0,
+        autoClickLevel: 0,
+        clickMultiplier: 1,
+        clickMultiplierLevel: 0
+    };
+    
+    saveGame();
+    updateDisplay();
+    closeResetConfirm();
+    closeUpgrades();
+}
+
 // Рендер улучшений
 function renderUpgrades() {
     upgradesList.innerHTML = '';
@@ -261,10 +304,21 @@ function setupEventListeners() {
     upgradesToggle.addEventListener('click', openUpgrades);
     modalClose.addEventListener('click', closeUpgrades);
     
+    // Обработчики сброса
+    resetBtn.addEventListener('click', openResetConfirm);
+    resetCancel.addEventListener('click', closeResetConfirm);
+    resetConfirm.addEventListener('click', resetGame);
+    
     // Закрытие модала при клике на фон
     upgradesModal.addEventListener('click', (e) => {
         if (e.target === upgradesModal) {
             closeUpgrades();
+        }
+    });
+    
+    resetConfirmModal.addEventListener('click', (e) => {
+        if (e.target === resetConfirmModal) {
+            closeResetConfirm();
         }
     });
     
