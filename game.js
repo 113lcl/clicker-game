@@ -22,10 +22,10 @@ const upgrades = [
     {
         id: 'clickMultiplier',
         name: 'Множитель',
-        description: 'Увеличивает клик на +0.5',
+        description: 'Увеличивает клик на 20%',
         basePrice: 15,
         increment: 1.15,
-        getEffect: (level) => `x${(1 + level * 0.5).toFixed(1)}`,
+        getEffect: (level) => `x${Math.pow(1.2, level).toFixed(2)}`,
         getPrice: (level) => Math.floor(15 * Math.pow(1.15, level))
     }
 ];
@@ -293,7 +293,7 @@ function buyUpgrade(upgrade) {
         gameState.autoClickRate++;
     } else if (upgrade.id === 'clickMultiplier') {
         gameState.clickMultiplierLevel++;
-        gameState.clickMultiplier += 0.5;
+        gameState.clickMultiplier *= 1.2;
     }
     
     updateDisplay();
